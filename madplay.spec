@@ -1,26 +1,26 @@
-Name:           madplay
-Version:        0.15.2b
-Release:        4%{?dist}
-Summary:        MPEG audio decoder and player
+Name:          madplay
+Version:       0.15.2b
+Release:       5%{?dist}
+Summary:       MPEG audio decoder and player
 
-Group:          System Environment/Libraries
-License:        GPL
-URL:            http://www.underbit.com/products/mad/
-Source0:        http://download.sourceforge.net/mad/%{name}-%{version}.tar.gz
-Source1:        mp3license
-Patch0:         %{name}-0.15.2b-abxtest-tempfile.patch
-Patch1:         http://ftp.debian.org/debian/pool/main/m/madplay/madplay_0.15.2b-4.diff.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Group:         Applications/Multimedia
+License:       GPLv2+
+URL:           http://www.underbit.com/products/mad/
+Source0:       http://download.sourceforge.net/mad/%{name}-%{version}.tar.gz
+Source1:       mp3license
+Patch0:        %{name}-0.15.2b-abxtest-tempfile.patch
+Patch1:        http://ftp.debian.org/debian/pool/main/m/madplay/madplay_0.15.2b-4.diff.gz
+BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-Requires:       %{_sbindir}/update-alternatives
-BuildRequires:  libmad-devel
-BuildRequires:  libid3tag-devel
-BuildRequires:  esound-devel
-BuildRequires:  gettext
+Requires:      %{_sbindir}/update-alternatives
+BuildRequires: libmad-devel
+BuildRequires: libid3tag-devel
+BuildRequires: esound-devel
+BuildRequires: gettext
 %{?_with_alsa:BuildRequires: alsa-lib-devel}
-Provides:       mp3-cmdline
-Provides:       mad = %{version}-%{release}
-Obsoletes:      mad < %{version}-%{release}
+Provides:      mp3-cmdline
+Provides:      mad = %{version}-%{release}
+Obsoletes:     mad < %{version}-%{release}
 
 %description
 madplay is a command-line MPEG audio decoder and player based on the
@@ -35,6 +35,9 @@ distributed libmad package.
 %{__patch} -i debian/patches/00_ucs4.diff
 sed -i -e 's/[-lz]/[]/' configure.ac ; sed -i -e 's/ -lz / /' configure
 touch -r aclocal.m4 configure.ac
+# Recode CREDITS to utf-8
+/usr/bin/iconv -f iso8859-1 -t utf-8 CREDITS > CREDITS.conv \
+    && /bin/mv CREDITS.conv CREDITS
 
 
 %build
@@ -59,6 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/update-alternatives --install %{_bindir}/mp3-cmdline \
   mp3-cmdline %{_bindir}/madplay 30
 
+
 %postun
 if [ $1 -eq 0 ] ; then
   %{_sbindir}/update-alternatives --remove mp3-cmdline %{_bindir}/madplay
@@ -76,8 +80,14 @@ fi
 
 
 %changelog
+* Wed Sep 24 2008 David Timms <iinet.net.au@dtimms> 0.15.2b-5
+- import and bump release for rpmfusion.
+- update license to GPLv2+ to meet Fedora guidelines.
+- change Group to Applications/Multimedia
+- convert CREDITS to utf-8
+
 * Fri Oct 06 2006 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.15.2b-4
- - rebuilt for unwind info generation, broken in gcc-4.1.1-21
+- rebuilt for unwind info generation, broken in gcc-4.1.1-21
 
 * Wed Sep 20 2006 Ville Skyttä <ville.skytta at iki.fi> - 0.15.2b-3
 - Rebuild.
