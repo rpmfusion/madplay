@@ -1,6 +1,6 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       MPEG audio decoder and player
 
 Group:         Applications/Multimedia
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.15.2b-6
+- rebuild for new F11 features
+
 * Wed Sep 24 2008 David Timms <iinet.net.au@dtimms> 0.15.2b-5
 - import and bump release for rpmfusion.
 - update license to GPLv2+ to meet Fedora guidelines.
