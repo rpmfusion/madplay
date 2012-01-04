@@ -1,6 +1,6 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       6%{?dist}.1
+Release:       7%{?dist}.1
 Summary:       MPEG audio decoder and player
 
 Group:         Applications/Multimedia
@@ -80,7 +80,7 @@ fi
 
 
 %changelog
-* Sat Oct 08 2011 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-6.1
+* Wed Jan 04 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-7.1
 - Rebuilt for target i686
 
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.15.2b-6
