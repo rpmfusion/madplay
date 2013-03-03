@@ -1,6 +1,6 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       MPEG audio decoder and player
 
 Group:         Applications/Multimedia
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Sun Mar 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-8
+- Mass rebuilt for Fedora 19 Features
+
 * Wed Jan 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
