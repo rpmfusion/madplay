@@ -1,6 +1,6 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       MPEG audio decoder and player
 
 Group:         Applications/Multimedia
@@ -15,7 +15,7 @@ BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires:      %{_sbindir}/update-alternatives
 BuildRequires: libmad-devel
 BuildRequires: libid3tag-devel
-BuildRequires: esound-devel
+#BuildRequires: esound-devel
 BuildRequires: gettext
 %{?_with_alsa:BuildRequires: alsa-lib-devel}
 Provides:      mp3-cmdline
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Mon May 20 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-9
+- Disable esound
+
 * Sun Mar 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-8
 - Mass rebuilt for Fedora 19 Features
 
