@@ -1,6 +1,6 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       MPEG audio decoder and player
 
 Group:         Applications/Multimedia
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 0.15.2b-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Mon May 20 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.15.2b-9
 - Disable esound
 
