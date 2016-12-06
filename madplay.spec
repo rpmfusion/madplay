@@ -1,6 +1,6 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       MPEG audio decoder and player
 
 License:       GPLv2+
@@ -8,6 +8,7 @@ URL:           http://www.underbit.com/products/mad/
 Source0:       http://download.sourceforge.net/mad/%{name}-%{version}.tar.gz
 Patch0:        %{name}-0.15.2b-abxtest-tempfile.patch
 Patch1:        %{name}-0.15.2b-ucs4.patch
+Patch2:        %{name}-0.15.2b-enable-alsa-format.patch
 
 Requires:      %{_sbindir}/update-alternatives
 BuildRequires: libmad-devel
@@ -70,6 +71,9 @@ fi
 
 
 %changelog
+* Tue Dec 06 2016 leigh scott <leigh123linux@googlemail.com> - 0.15.2b-12
+- Patch to enable alsa output format
+
 * Tue Dec 06 2016 leigh scott <leigh123linux@googlemail.com> - 0.15.2b-11
 - Prepare package for export to Fedora repo
 - Fix build flags

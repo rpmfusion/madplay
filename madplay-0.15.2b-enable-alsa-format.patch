@@ -1,0 +1,11 @@
+--- a/audio.c
++++ b/audio.c
+@@ -69,6 +69,7 @@
+ # if defined(HAVE_LIBAUDIO)
+     { "nas",  audio_nas  },
+ # endif
++    { "alsa",  audio_alsa},
+     { "null", audio_null },
+     { "nul",  audio_null }
+   };
+
