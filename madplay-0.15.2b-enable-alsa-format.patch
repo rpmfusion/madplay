@@ -4,7 +4,7 @@
  # if defined(HAVE_LIBAUDIO)
      { "nas",  audio_nas  },
  # endif
-+    { "alsa",  audio_alsa},
++    { "alsa", audio_alsa },
      { "null", audio_null },
      { "nul",  audio_null }
    };
