@@ -1,26 +1,20 @@
 Name:          madplay
 Version:       0.15.2b
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       MPEG audio decoder and player
 
-Group:         Applications/Multimedia
 License:       GPLv2+
 URL:           http://www.underbit.com/products/mad/
 Source0:       http://download.sourceforge.net/mad/%{name}-%{version}.tar.gz
-Source1:       mp3license
 Patch0:        %{name}-0.15.2b-abxtest-tempfile.patch
-Patch1:        http://ftp.debian.org/debian/pool/main/m/madplay/madplay_0.15.2b-4.diff.gz
-BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+Patch1:        %{name}-0.15.2b-ucs4.patch
 
 Requires:      %{_sbindir}/update-alternatives
 BuildRequires: libmad-devel
 BuildRequires: libid3tag-devel
-#BuildRequires: esound-devel
 BuildRequires: gettext
-%{?_with_alsa:BuildRequires: alsa-lib-devel}
+BuildRequires: alsa-lib-devel
 Provides:      mp3-cmdline
-Provides:      mad = %{version}-%{release}
-Obsoletes:     mad < %{version}-%{release}
 
 %description
 madplay is a command-line MPEG audio decoder and player based on the
@@ -29,10 +23,8 @@ distributed libmad package.
 
 
 %prep
-%setup -q
-%patch0
-%patch1 -p1
-%{__patch} -i debian/patches/00_ucs4.diff
+%autosetup -p1
+
 sed -i -e 's/[-lz]/[]/' configure.ac ; sed -i -e 's/ -lz / /' configure
 touch -r aclocal.m4 configure.ac
 # Recode CREDITS to utf-8
@@ -41,21 +33,19 @@ touch -r aclocal.m4 configure.ac
 
 
 %build
-%configure %{?_with_alsa} --disable-dependency-tracking
-make %{?_smp_mflags}
-make %{?_smp_mflags} madtime # madmix mad123 madtag # sometime, when they work
+%configure --disable-dependency-tracking \
+ --with-alsa \
+ --enable-shared=yes \
+ --enable-static=no
 
+%make_build CFLAGS="$RPM_OPT_FLAGS"
+%make_build CFLAGS="$RPM_OPT_FLAGS" madtime
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 install -pm 755 madtime $RPM_BUILD_ROOT%{_bindir}
-cp -p %{SOURCE1} .
+
 %find_lang %{name}
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %post
@@ -70,8 +60,8 @@ fi
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
-%doc CHANGES COPYING COPYRIGHT CREDITS README TODO
+%doc CHANGES CREDITS README TODO
+%license COPYING COPYRIGHT
 %{_bindir}/abxtest
 %{_bindir}/madplay
 %{_bindir}/madtime
@@ -80,6 +70,12 @@ fi
 
 
 %changelog
+* Tue Dec 06 2016 leigh scott <leigh123linux@googlemail.com> - 0.15.2b-11
+- Prepare package for export to Fedora repo
+- Fix build flags
+- Switch to alsa (was oss)
+- Clean up spec file
+
 * Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 0.15.2b-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
